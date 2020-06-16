@@ -11,8 +11,8 @@ import os
 import gc
 import sys
 import random
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 from pygame.locals import *
 import Globals as G
 gc.enable()
@@ -20,11 +20,11 @@ import BiblioJAM
 from BiblioJAM.JAMButton import JAMButton
 import BiblioJAM.JAMGlobals as JAMG
 
-class Grupos(gtk.Widget):
-	__gsignals__ = {"run_game":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, (gobject.TYPE_STRING,)),
-	"back":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, [])}
+class Grupos(Gtk.Widget):
+	__gsignals__ = {"run_game":(GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_STRING,)),
+	"back":(GObject.SignalFlags.RUN_FIRST, None, [])}
 	def __init__(self, grupo, usuario):
-		gtk.Widget.__init__(self)
+		GObject.GObject.__init__(self)
 		self.usuario = usuario
 		self.grupo = grupo
 		self.ventana = None
@@ -45,8 +45,8 @@ class Grupos(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Intro":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.botonesmenu.clear(self.ventana, self.fondo)
 			self.botonesmenu.update()

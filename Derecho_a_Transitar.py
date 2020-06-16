@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 import sys
 import socket
 import pygame
@@ -17,11 +17,11 @@ class Derecho_a_Transitar(activity.Activity):
 	def __init__(self, handle):
 		activity.Activity.__init__(self, handle, False)
 		self.set_title("Derecho A Transitar")
-		self.socket = gtk.Socket()
+		self.socket = Gtk.Socket()
 		self.set_canvas(self.socket)
 		self.gtkplug = gtkplug()
 		self.socket.add_id(self.gtkplug.get_id())	
-		self.add_events(gtk.gdk.ALL_EVENTS_MASK)
+		self.add_events(Gdk.EventMask.ALL_EVENTS_MASK)
 		self.connect("destroy", self.salir)
 		self.connect("set-focus-child", self.refresh)
 		self.show_all()
@@ -36,20 +36,20 @@ class Derecho_a_Transitar(activity.Activity):
 		pygame.quit()
 		sys.exit()
 
-class PygameCanvas(gtk.EventBox):
+class PygameCanvas(Gtk.EventBox):
 	def __init__(self):
-		gtk.EventBox.__init__(self)
-		self.set_flags(gtk.CAN_FOCUS)
+		GObject.GObject.__init__(self)
+		self.set_flags(Gtk.CAN_FOCUS)
 		self.setup_events()
-		self.socket = gtk.Socket()
+		self.socket = Gtk.Socket()
 		self.add(self.socket)
 		self.button_state = [0,0,0]
 		self.mouse_pos = (0,0)
 
 	def setup_events(self):
-		self.set_events(gtk.gdk.KEY_PRESS | gtk.gdk.EXPOSE | gtk.gdk.POINTER_MOTION_MASK | \
-		            gtk.gdk.POINTER_MOTION_HINT_MASK | gtk.gdk.BUTTON_MOTION_MASK | \
-		            gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.BUTTON_RELEASE_MASK)
+		self.set_events(Gdk.KEY_PRESS | Gdk.EXPOSE | Gdk.EventMask.POINTER_MOTION_MASK | \
+		            Gdk.EventMask.POINTER_MOTION_HINT_MASK | Gdk.EventMask.BUTTON_MOTION_MASK | \
+		            Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK)
 	
 		self.connect("key-press-event", self.keypress)
 		self.connect("button_press_event", self.mousedown)
@@ -59,7 +59,7 @@ class PygameCanvas(gtk.EventBox):
 		self.connect("focus-in-event", self.set_focus)
 
 	def keypress(self, selfmain, event, parametros= None):
-		nombre = gtk.gdk.keyval_name(event.keyval)
+		nombre = Gdk.keyval_name(event.keyval)
 		tipo = pygame.KEYDOWN
 		unic = str.lower(nombre)
 		valor = nombre
@@ -89,9 +89,9 @@ class PygameCanvas(gtk.EventBox):
         	rel = (x - self.mouse_pos[0], y - self.mouse_pos[1])
         	self.mouse_pos = (int(x), int(y))
         	self.button_state = [
-            	state & gtk.gdk.BUTTON1_MASK and 1 or 0,
-            	state & gtk.gdk.BUTTON2_MASK and 1 or 0,
-            	state & gtk.gdk.BUTTON3_MASK and 1 or 0,
+            	state & Gdk.ModifierType.BUTTON1_MASK and 1 or 0,
+            	state & Gdk.ModifierType.BUTTON2_MASK and 1 or 0,
+            	state & Gdk.ModifierType.BUTTON3_MASK and 1 or 0,
         	]
 		evt = pygame.event.Event(pygame.MOUSEMOTION, pos = self.mouse_pos,
 			rel = rel, buttons = self.button_state)
@@ -127,16 +127,16 @@ class PygameCanvas(gtk.EventBox):
 		self.queue_draw()
 		return False
 
-class VentanaGTK(gtk.Window):
+class VentanaGTK(Gtk.Window):
 	def __init__(self):
-		gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
+		GObject.GObject.__init__(self, Gtk.WindowType.TOPLEVEL)
 		self.set_title("Derecho A Transitar")
 		self.fullscreen()
-		self.socket = gtk.Socket()
+		self.socket = Gtk.Socket()
 		self.add(self.socket)
 		self.gtkplug = gtkplug()
 		self.socket.add_id(self.gtkplug.get_id())	
-		self.add_events(gtk.gdk.ALL_EVENTS_MASK)
+		self.add_events(Gdk.EventMask.ALL_EVENTS_MASK)
 		self.connect("destroy", self.salir)
 		self.connect("set-focus-child", self.refresh)
 		self.show_all()
@@ -151,9 +151,9 @@ class VentanaGTK(gtk.Window):
 		pygame.quit()
 		sys.exit()
 
-class gtkplug(gtk.Plug):
+class gtkplug(Gtk.Plug):
 	def __init__(self):
-		gtk.Plug.__init__(self, 0L)
+		GObject.GObject.__init__(self, 0L)
 		self.resolucion = (self.get_screen().get_width(),self.get_screen().get_height())
 		self.eventbox = PygameCanvas()
 		self.add(self.eventbox)
@@ -162,7 +162,7 @@ class gtkplug(gtk.Plug):
 		self.usuario = None
 		self.connect("embedded", self.embed_event)
 		os.putenv('SDL_WINDOWID', str(self.eventbox.socket.get_id()))
-		gobject.idle_add(self.run_derecho_a_transitar)
+		GObject.idle_add(self.run_derecho_a_transitar)
 
 	def embed_event(self, widget):
 	    	pass
@@ -287,4 +287,4 @@ class gtkplug(gtk.Plug):
 
 if __name__=="__main__":
 	VentanaGTK()
-	gtk.main()
+	Gtk.main()

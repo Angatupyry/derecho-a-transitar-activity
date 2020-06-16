@@ -9,8 +9,8 @@
 import pygame
 import gc
 import sys
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 from pygame.locals import *
 import Globals as G
 gc.enable()
@@ -18,10 +18,10 @@ import BiblioJAM
 from BiblioJAM.JAMButton import JAMButton
 import BiblioJAM.JAMGlobals as JAMG
 
-class Main(gtk.Widget):
-	__gsignals__ = {"run":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, [])}
+class Main(Gtk.Widget):
+	__gsignals__ = {"run":(GObject.SignalFlags.RUN_FIRST, None, [])}
 	def __init__(self):
-		gtk.Widget.__init__(self)
+		GObject.GObject.__init__(self)
 		self.ventana = None
 		self.estado = False
 		self.fondo = None
@@ -40,8 +40,8 @@ class Main(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Intro":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.botonesmenu.clear(self.ventana, self.fondo)
 			self.botonesmenu.update()
@@ -97,8 +97,8 @@ class Main(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Dialog":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			dialog.clear(self.ventana, self.fondo)
 			dialog.update()

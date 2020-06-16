@@ -10,8 +10,8 @@ import pygame
 import gc
 import sys
 import random
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 from pygame.locals import *
 import Globals as G
 gc.enable()
@@ -20,10 +20,10 @@ from BiblioJAM.JAMButton import JAMButton
 from BiblioJAM.JAMLabel import JAMLabel
 import BiblioJAM.JAMGlobals as JAMG
 
-class FGR_T0102(gtk.Widget):
-	__gsignals__ = {"run_grupo":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, (gobject.TYPE_STRING,gobject.TYPE_INT))}
+class FGR_T0102(Gtk.Widget):
+	__gsignals__ = {"run_grupo":(GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_STRING,GObject.TYPE_INT))}
 	def __init__(self, usuario):
-		gtk.Widget.__init__(self)
+		GObject.GObject.__init__(self)
 		self.usuario = usuario
 		self.ventana = None
 		self.nombre = "Tipos de señales"
@@ -69,8 +69,8 @@ class FGR_T0102(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Intro":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.textos.clear(self.ventana, self.fondo)
 			self.botonesmenu.clear(self.ventana, self.fondo)
@@ -92,8 +92,8 @@ class FGR_T0102(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Game":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.carteles.clear(self.ventana, self.fondo)
 			self.seniales.clear(self.ventana, self.fondo)
@@ -256,8 +256,8 @@ class FGR_T0102(gtk.Widget):
 		pygame.display.update()
 		while self.estado== "Instruc":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.botonesmenu.clear(self.ventana, self.fondo)
 			self.botonesmenu.update()
@@ -282,8 +282,8 @@ class FGR_T0102(gtk.Widget):
 		pygame.display.update()
 		while self.estado== "Dialog":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			dialog.clear(self.ventana, self.fondo)
 			dialog.update()
@@ -328,8 +328,8 @@ class FGR_T0102(gtk.Widget):
 		pygame.display.update()
 		while self.estado== "Dialog":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			dialog.clear(self.ventana, self.fondo)
 			dialog.update()

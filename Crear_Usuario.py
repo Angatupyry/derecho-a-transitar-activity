@@ -5,8 +5,8 @@ import pygame
 import os
 import gc
 import sys
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 from pygame.locals import *
 import Globals as G
 gc.enable()
@@ -17,11 +17,11 @@ from BiblioJAM.JAMEntryText import JAMEntryText
 from BiblioJAM.JAMBoardEntryText import JAMBoardEntryText
 import BiblioJAM.JAMGlobals as JAMG
 
-class Crear_Usuario(gtk.Widget):
-	__gsignals__ = {"run":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,)),
-	"back":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, [])}
+class Crear_Usuario(Gtk.Widget):
+	__gsignals__ = {"run":(GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_PYOBJECT,)),
+	"back":(GObject.SignalFlags.RUN_FIRST, None, [])}
 	def __init__(self):
-		gtk.Widget.__init__(self)
+		GObject.GObject.__init__(self)
 		self.ventana = None
 		self.estado = False
 		self.fondo = None
@@ -40,8 +40,8 @@ class Crear_Usuario(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Intro":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.frame.clear(self.ventana, self.fondo)
 			self.frame.update()
@@ -353,8 +353,8 @@ class Frame(pygame.sprite.OrderedUpdates):
 		pygame.display.update()
 		while self.estado == "board":
 			self.main.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.main.VA, self.main.VH)
 			self.clear(self.main.ventana, self.main.fondo)
 			self.board.update()

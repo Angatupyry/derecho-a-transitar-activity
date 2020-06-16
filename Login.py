@@ -5,8 +5,8 @@ import pygame
 import os
 import gc
 import sys
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 
 from pygame.locals import *
 import Globals as G
@@ -16,12 +16,12 @@ from BiblioJAM.JAMButton import JAMButton
 from BiblioJAM.JAMLabel import JAMLabel
 import BiblioJAM.JAMGlobals as JAMG
 
-class Login(gtk.Widget):
-	__gsignals__ = {"run":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, []),
-	"crear_usuario":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, []),
-	"load_usuario":(gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,))}
+class Login(Gtk.Widget):
+	__gsignals__ = {"run":(GObject.SignalFlags.RUN_FIRST, None, []),
+	"crear_usuario":(GObject.SignalFlags.RUN_FIRST, None, []),
+	"load_usuario":(GObject.SignalFlags.RUN_FIRST, None, (GObject.TYPE_PYOBJECT,))}
 	def __init__(self):
-		gtk.Widget.__init__(self)
+		GObject.GObject.__init__(self)
 		self.ventana = None
 		self.estado = False
 		self.fondo = None
@@ -40,8 +40,8 @@ class Login(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Intro":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			self.selector.clear(self.ventana, self.fondo)
 			self.selector.update()
@@ -107,8 +107,8 @@ class Login(gtk.Widget):
 		pygame.display.update()
 		while self.estado == "Dialog":
 			self.reloj.tick(35)
-			while gtk.events_pending():
-			    	gtk.main_iteration(False)
+			while Gtk.events_pending():
+			    	Gtk.main_iteration(False)
 			G.Traduce_posiciones(self.VA, self.VH)
 			dialog.clear(self.ventana, self.fondo)
 			dialog.update()

@@ -12,7 +12,7 @@ import sys
 import os
 import random
 import platform
-import gtk
+from gi.repository import Gtk
 import shelve
 
 from pygame.locals import *
@@ -23,12 +23,12 @@ from BiblioJAM.JAMButton import JAMButton
 from BiblioJAM.JAMLabel import JAMLabel
 import BiblioJAM.JAMGlobals as JAMG
 
-GRIS = gtk.gdk.Color(60156, 60156, 60156, 1)
-AMARILLO1 = gtk.gdk.Color(65000,65000,40275,1)
-NARANJA = gtk.gdk.Color(65000,26000,0,1)
-BLANCO = gtk.gdk.Color(65535, 65535, 65535,1)
-NEGRO = gtk.gdk.Color(0, 0, 0, 1)
-CELESTE = gtk.gdk.Color(63000, 65535, 65535,1)
+GRIS = Gdk.Color(60156, 60156, 60156, 1)
+AMARILLO1 = Gdk.Color(65000,65000,40275,1)
+NARANJA = Gdk.Color(65000,26000,0,1)
+BLANCO = Gdk.Color(65535, 65535, 65535,1)
+NEGRO = Gdk.Color(0, 0, 0, 1)
+CELESTE = Gdk.Color(63000, 65535, 65535,1)
 
 if "olpc" in platform.platform():
 	os.environ['SDL_AUDIODRIVER'] = 'alsa'
