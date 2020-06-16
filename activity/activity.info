@@ -1,8 +1,7 @@
 [Activity]
 name = Derecho_a_Transitar
 activity_version = 2
-bundle_id = org.laptop.Derecho_a_Transitar
+service_name = org.laptop.Derecho_a_Transitar
 icon = Juego
-exce = Derecho_a_Transitar
 show_launcher = yes
-
+class = Derecho_a_Transitar.Derecho_a_Transitar

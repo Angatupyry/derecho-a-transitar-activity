@@ -10,7 +10,7 @@ import pygame
 import shelve
 
 from pygame.locals import *
-from sugar.activity import activity
+from sugar3.activity import activity
 import Globals as G
 
 class Derecho_a_Transitar(activity.Activity):
